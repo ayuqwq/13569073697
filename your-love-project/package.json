@@ -1,0 +1,8 @@
+{
+  "name": "love-page",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "serve public",
+    "build": "echo 'Build complete'"
+  }
+}

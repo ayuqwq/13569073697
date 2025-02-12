@@ -1,0 +1,135 @@
+html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>❤ 阿瑜的专属告白 ❤</title>
+    <style>
+        /* 新增字体引入 */
+        @import url('https://fonts.googleapis.com/css2?family=ZCOOL+QingKe+HuangYou&display=swap');
+        
+        body {
+            background: #000;
+            margin: 0;
+            overflow: hidden;
+            touch-action: none;
+            font-family: 'ZCOOL QingKe HuangYou', cursive;
+        }
+
+        .flow-text {
+            position: absolute;
+            color: #ff69b4;
+            font-size: 4vw;
+            animation: flow 8s linear infinite;
+            opacity: 0.7;
+            white-space: nowrap;
+        }
+
+        @keyframes flow {
+            from { transform: translateY(-100vh) rotate(5deg); }
+            to { transform: translateY(100vh) rotate(-5deg); }
+        }
+
+        .center-text {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .heart {
+            font-size: 20vw;
+            color: #ff69b4;
+            animation: heartbeat 1.2s ease-in-out infinite;
+            display: none;
+        }
+
+        .pop-text {
+            font-size: 8vw;
+            color: #fff;
+            text-shadow: 0 0 2vw #ff69b4;
+            display: none;
+            animation: text-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.3); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.15); }
+            60% { transform: scale(1); }
+        }
+
+        @keyframes text-glow {
+            0%, 100% { opacity: 1; text-shadow: 0 0 2vw #ff69b4; }
+            50% { opacity: 0.8; text-shadow: 0 0 4vw #ff69b4; }
+        }
+    </style>
+</head>
+<body>
+    <div id="flow-container"></div>
+    <div id="heart" class="heart center-text">❤️</div>
+    <div id="text2025" class="pop-text center-text">2025</div>
+    <div id="text1" class="pop-text center-text">情人节快乐</div>
+    <div id="text2" class="pop-text center-text">阿瑜 ❤ 月月</div>
+    <div id="text3" class="pop-text center-text">要一直在一起</div>
+    <div id="text4" class="pop-text center-text">我会永远陪着你</div>
+
+    <script>
+        // 初始化流动文字
+        function createFlowText() {
+            const container = document.getElementById('flow-container');
+            const texts = ['I Love You', '❤', '月月', '阿瑜'];
+            
+            for(let i = 0; i < 30; i++) {
+                const text = document.createElement('div');
+                text.className = 'flow-text';
+                text.style.left = Math.random() * 100 + 'vw';
+                text.style.animationDelay = Math.random() * 8 + 's';
+                text.textContent = texts[Math.floor(Math.random() * texts.length)];
+                container.appendChild(text);
+            }
+        }
+
+        // 新版时间轴控制器
+        const timeline = [
+            { time: 5000, action: () => document.getElementById('heart').style.display = 'block' },
+            { time: 8000, action: () => document.getElementById('heart').style.display = 'none' },
+            { time: 10000, action: () => showText('text2025') },
+            { time: 15000, action: () => switchText('text2025', 'text1') },
+            { time: 20000, action: () => switchText('text1', 'text2') },
+            { time: 25000, action: () => switchText('text2', 'text3') },
+            { time: 30000, action: () => switchText('text3', 'text4') },
+            { 
+                time: 36000, 
+                action: () => {
+                    document.getElementById('flow-container').innerHTML = '';
+                    createFlowText();
+                    setTimeout(startTimeline, 5000);
+                }
+            }
+        ];
+
+        function showText(id) {
+            document.getElementById(id).style.display = 'block';
+        }
+
+        function switchText(oldId, newId) {
+            document.getElementById(oldId).style.display = 'none';
+            document.getElementById(newId).style.display = 'block';
+        }
+
+        function startTimeline() {
+            timeline.forEach(event => {
+                setTimeout(event.action, event.time);
+            });
+        }
+
+        // 启动
+        createFlowText();
+        startTimeline();
+    </script>
+</body>
+</html>
