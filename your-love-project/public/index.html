@@ -5,6 +5,38 @@ html
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>❤ 阿瑜的专属告白 ❤</title>
+    <!-- 新增音频标签 -->
+    <audio id="bgm" loop>
+        <source src="https://music.163.com/#/song?id=2085452852" type="audio/mpeg">
+        您的浏览器不支持音频播放
+    </audio>
+    <style>
+        /* 原有样式保持不变... */
+        
+        /* 新增音频控件样式（隐藏） */
+        #bgm {
+            position: fixed;
+            left: -999px;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body onclick="startPlayback()"> <!-- 添加点击事件 -->
+    <!-- 原有内容保持不变... -->
+
+    <script>
+        // 新增音乐播放控制
+        let musicPlayed = false;
+        function startPlayback() {
+            if (!musicPlayed) {
+                const bgm = document.getElementById('bgm');
+                bgm.play().catch(() => {
+                    alert('请点击页面任意位置开始播放音乐');
+                });
+                musicPlayed = true;
+            }
+        }
+
     <style>
         /* 新增字体引入 */
         @import url('https://fonts.googleapis.com/css2?family=ZCOOL+QingKe+HuangYou&display=swap');
@@ -110,6 +142,14 @@ html
                     setTimeout(startTimeline, 5000);
                 }
             }
+        ];
+        // 修改后的时间轴（添加音乐播放）
+        const timeline = [
+            { time: 0, action: () => {
+                createFlowText();
+                startPlayback(); // 尝试自动播放
+            }},
+            // 原有时间轴事件保持不变...
         ];
 
         function showText(id) {
